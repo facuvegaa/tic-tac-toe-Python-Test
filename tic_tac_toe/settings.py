@@ -81,7 +81,7 @@ DATABASES = {
         'NAME': 'tic_tac_toe_db',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
