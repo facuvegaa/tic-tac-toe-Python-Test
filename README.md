@@ -269,3 +269,18 @@ Update the state of the game:
     "is_finished": false
 }
 ```
+## Tech Stack
+
+**Language:**
+- Python
+
+**Database:**
+- Postgres
+
+**Others:**
+- Docker Compose
+
+  
+## Author
+
+- [@FacundoVega](https://github.com/facuvegaa)
