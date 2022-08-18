@@ -22,7 +22,7 @@ Build images from application and database.
 docker-compose build
 ```
 
-make and run the migrations
+Make and run the migrations
 ```bash
 docker-compose run web python manage.py makemigrations
 docker-compose run web python manage.py migrate
@@ -172,7 +172,7 @@ Delete the game by id.
 #### Retrive a game
 
 ```http
-  DELETE localhost:8080/api/delete_game/{id}
+  DELETE localhost:8000/api/delete_game/{id}
 ```
 Retrive a game by id:
 
@@ -214,12 +214,12 @@ Retrive a game by id:
 
 #### Update a game
 ```http
-  POST localhost:8080/api/update_game/{id}
+  POST localhost:8000/api/update_game/{id}
 ```
 | Parameters | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `player` | `string` | **Required** |
-| `row` | `array` | **Required** |
+| `row` | `string` | **Required** |
 | `column` | `sring` | **Required** |
 
 Update the state of the game:
