@@ -1,5 +1,3 @@
-from collections import Counter
-from unicodedata import name
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 
