@@ -42,11 +42,11 @@ docker-compose up
   POST localhost:8000/api/create_game/
 ```
 
-| Parameters | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `player1` | `array` | **Required** |
-| `player2` | `array` | **Required** |
-| `next_turn` | `sring` | **Required** |
+| Parameters | Type     |Example| Description                |
+| :-------- | :------- | :------- | :------------------------- |
+| `player1` | `array` | ["Facu", "X"] || **Required** |
+| `player2` | `array` | ["Benja", "O"] | **Required** |
+| `next_turn` | `sring` | "Facu" | **Required** |
 
 Returns a response with the data of the created game:
 ```JSON
@@ -115,7 +115,7 @@ Delete the game by id.
 #### Retrive a game
 
 ```http
-  DELETE localhost:8000/api/delete_game/{id}
+  GET localhost:8000/api/delete_game/{id}
 ```
 Retrive a game by id
 
@@ -123,11 +123,11 @@ Retrive a game by id
 ```http
   POST localhost:8000/api/update_game/{id}
 ```
-| Parameters | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `player` | `string` | **Required** |
-| `row` | `string` | **Required** |
-| `column` | `sring` | **Required** |
+| Parameters | Type     |Example| Description                |
+| :-------- | :------- | :------- | :------------------------- |
+| `player` | `string` | "Pedro" || **Required** |
+| `row` | `string` | "0" | **Required** |
+| `column` | `sring` | "0" | **Required** |
 
 Update the state of the game:
 ```JSON
