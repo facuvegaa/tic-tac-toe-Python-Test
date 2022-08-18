@@ -44,7 +44,7 @@ docker-compose up
 
 | Parameters | Type     |Example| Description                |
 | :-------- | :------- | :------- | :------------------------- |
-| `player1` | `array` | ["Facu", "X"] || **Required** |
+| `player1` | `array` | ["Facu", "X"] | **Required** |
 | `player2` | `array` | ["Benja", "O"] | **Required** |
 | `next_turn` | `sring` | "Facu" | **Required** |
 
