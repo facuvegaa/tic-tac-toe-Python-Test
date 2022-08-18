@@ -125,7 +125,7 @@ Retrive a game by id
 ```
 | Parameters | Type     |Example| Description                |
 | :-------- | :------- | :------- | :------------------------- |
-| `player` | `string` | "Pedro" || **Required** |
+| `player` | `string` | "Pedro" | **Required** |
 | `row` | `string` | "0" | **Required** |
 | `column` | `sring` | "0" | **Required** |
 
