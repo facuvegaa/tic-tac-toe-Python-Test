@@ -48,7 +48,7 @@ docker-compose up
 | `player2` | `array` | **Required** |
 | `next_turn` | `sring` | **Required** |
 
-Returns a response with the data of the game:
+Returns a response with the data of the created game:
 ```JSON
 {
     "id": 1,
@@ -89,89 +89,20 @@ Returns a response with the data of the game:
 ```http
   GET localhost:8000/api/get_all_games/
 ```
-Returns a response with all the games:
-```JSON
-{
-[
-    {
-        "id": 1,
-        "player1": [
-            "Facu",
-            "P"
-        ],
-        "player2": [
-            "Benja",
-            "T"
-        ],
-        "next_turn": "Benja",
-        "movements_played": 0,
-        "winner": "",
-        "board": [
-            [
-                null,
-                null,
-                null
-            ],
-            [
-                null,
-                null,
-                null
-            ],
-            [
-                null,
-                null,
-                null
-            ]
-        ],
-        "is_finished": false
-    },
-    {
-        "id": 2,
-        "player1": [
-            "Pedro",
-            "X"
-        ],
-        "player2": [
-            "Pablo",
-            "O"
-        ],
-        "next_turn": "Pablo",
-        "movements_played": 0,
-        "winner": "",
-        "board": [
-            [
-                null,
-                null,
-                null
-            ],
-            [
-                null,
-                null,
-                null
-            ],
-            [
-                null,
-                null,
-                null
-            ]
-        ],
-        "is_finished": false
-    }
-]
-}
-```
+Returns a response with all the games.
+
 #### Get finished games
 
 ```http
   GET localhost:8000/api/get_finished_games/
 ```
-Returns a response with all the finished games:
+Returns a response with all the finished games.
 
 #### Get active games
 ```http
   GET localhost:8000/api/get_finished_games/
 ```
-Returns a response with all the active games:  
+Returns a response with all the active game. 
 
 #### Delete a game
 
@@ -186,43 +117,7 @@ Delete the game by id.
 ```http
   DELETE localhost:8000/api/delete_game/{id}
 ```
-Retrive a game by id:
-
-```JSON
-    {
-        "id": 1,
-        "player1": [
-            "Facu",
-            "P"
-        ],
-        "player2": [
-            "Benja",
-            "T"
-        ],
-        "next_turn": "Benja",
-        "movements_played": 0,
-        "winner": "",
-        "board": [
-            [
-                null,
-                null,
-                null
-            ],
-            [
-                null,
-                null,
-                null
-            ],
-            [
-                null,
-                null,
-                null
-            ]
-        ],
-        "is_finished": false
-    }
-    
-```
+Retrive a game by id
 
 #### Update a game
 ```http
@@ -275,7 +170,7 @@ Update the state of the game:
 - Python
 
 **Database:**
-- Postgres
+- PostgresSQL
 
 **Others:**
 - Docker Compose

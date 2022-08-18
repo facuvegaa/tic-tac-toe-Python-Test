@@ -6,6 +6,9 @@ class GameSerializer(serializers.ModelSerializer):
         model = Game
         fields = '__all__'
     
+    # When creating an instance, it checks that the user has chosen a symbol to play, 
+    # if not, X is automatically set for player1 and O for player2.
+    # It also validates that the next turn is for an existing player.
     def create(self, validated_data):
         game = Game()
         game.player1 = validated_data["player1"]
