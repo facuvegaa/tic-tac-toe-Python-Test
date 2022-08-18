@@ -7,8 +7,6 @@ there was some kind of problem with the input data.
 
 ## Run Locally
 
-The version of python that the project is using is 3.9 so lets create a virtual enviroment 
-
 Clone the project.
 ```bash
 git clone https://github.com/facuvegaa/tic-tac-toe-Python-Test.git
@@ -19,24 +17,243 @@ Go to the project directory.
 cd tic-tac-toe-Python-Test
 ```
 
-The version of python that the project is using is 3.9 so lets create a virtual enviroment. I use Pyenv and Pyenv-virtualenv to do it, in order to install this tools check the links, anyways you can use any tool to create your own Virtual Enviroment.
-```
-https://github.com/pyenv/pyenv
-https://github.com/pyenv/pyenv-virtualenv
-```
-
 Build images from application and database.
 ```bash
-  docker-compose build
+docker-compose build
 ```
 
-Run the migrations
+make and run the migrations
 ```bash
-  docker-compose run web python manage.py migrate
+docker-compose run web python manage.py makemigrations
+docker-compose run web python manage.py migrate
 ```
 
 Run the generated images.
 ```bash
-  docker-compose up
+docker-compose up
 ```
 
+## API Reference
+
+
+#### Create a game
+
+```http
+  POST localhost:8000/api/create_game/
+```
+
+| Parameters | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `player1` | `array` | **Required** |
+| `player2` | `array` | **Required** |
+| `next_turn` | `sring` | **Required** |
+
+Returns a response with the data of the game:
+```JSON
+{
+    "id": 1,
+    "player1": [
+        "Facu",
+        "X"
+    ],
+    "player2": [
+        "Benja",
+        "O"
+    ],
+    "next_turn": "Benja",
+    "movements_played": 0,
+    "winner": "",
+    "board": [
+        [
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null
+        ]
+    ],
+    "is_finished": false
+}
+```
+
+#### Get all games
+
+```http
+  GET localhost:8000/api/get_all_games/
+```
+Returns a response with all the games:
+```JSON
+{
+[
+    {
+        "id": 1,
+        "player1": [
+            "Facu",
+            "P"
+        ],
+        "player2": [
+            "Benja",
+            "T"
+        ],
+        "next_turn": "Benja",
+        "movements_played": 0,
+        "winner": "",
+        "board": [
+            [
+                null,
+                null,
+                null
+            ],
+            [
+                null,
+                null,
+                null
+            ],
+            [
+                null,
+                null,
+                null
+            ]
+        ],
+        "is_finished": false
+    },
+    {
+        "id": 2,
+        "player1": [
+            "Pedro",
+            "X"
+        ],
+        "player2": [
+            "Pablo",
+            "O"
+        ],
+        "next_turn": "Pablo",
+        "movements_played": 0,
+        "winner": "",
+        "board": [
+            [
+                null,
+                null,
+                null
+            ],
+            [
+                null,
+                null,
+                null
+            ],
+            [
+                null,
+                null,
+                null
+            ]
+        ],
+        "is_finished": false
+    }
+]
+}
+```
+  
+#### Delete a game
+
+```http
+  DELETE localhost:8000/api/delete_game/{id}
+```
+Delete the game by id.
+  
+
+#### Retrive a game
+
+```http
+  DELETE localhost:8080/api/delete_game/{id}
+```
+Retrive a game by id:
+
+```JSON
+    {
+        "id": 1,
+        "player1": [
+            "Facu",
+            "P"
+        ],
+        "player2": [
+            "Benja",
+            "T"
+        ],
+        "next_turn": "Benja",
+        "movements_played": 0,
+        "winner": "",
+        "board": [
+            [
+                null,
+                null,
+                null
+            ],
+            [
+                null,
+                null,
+                null
+            ],
+            [
+                null,
+                null,
+                null
+            ]
+        ],
+        "is_finished": false
+    }
+    
+```
+
+#### Update a game
+```http
+  POST localhost:8080/api/update_game/{id}
+```
+| Parameters | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `player` | `string` | **Required** |
+| `row` | `array` | **Required** |
+| `column` | `sring` | **Required** |
+
+Update the state of the game:
+```JSON
+{
+    "id": 2,
+    "player1": [
+        "Pedro",
+        "X"
+    ],
+    "player2": [
+        "Pablo",
+        "O"
+    ],
+    "next_turn": "Pedro",
+    "movements_played": 1,
+    "winner": "",
+    "board": [
+        [
+            "O",
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null
+        ],
+        [
+            null,
+            null,
+            null
+        ]
+    ],
+    "is_finished": false
+}
+```
