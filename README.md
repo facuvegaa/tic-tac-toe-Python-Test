@@ -160,7 +160,19 @@ Returns a response with all the games:
 ]
 }
 ```
-  
+#### Get finished games
+
+```http
+  GET localhost:8000/api/get_finished_games/
+```
+Returns a response with all the finished games:
+
+#### Get active games
+```http
+  GET localhost:8000/api/get_finished_games/
+```
+Returns a response with all the active games:  
+
 #### Delete a game
 
 ```http

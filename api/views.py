@@ -38,6 +38,25 @@ def get_all_games(request):
         return Response(serializer.data, status.HTTP_200_OK)
 
 @api_view(['GET'])
+def get_finished_games(request):
+    games = Game.objects.filter(is_finished = True)
+    serializer = GameSerializer(games, many=True)
+    if serializer.data == []:
+        return Response("There are no finished games", status.HTTP_200_OK)
+    else:    
+        return Response(serializer.data, status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_active_games(request):
+    games = Game.objects.filter(is_finished = False)
+    serializer = GameSerializer(games, many=True)
+    if serializer.data == []:
+        return Response("There are no active games", status.HTTP_200_OK)
+    else:    
+        return Response(serializer.data, status.HTTP_200_OK)
+
+
+@api_view(['GET'])
 def get_game(request, pk):
     try:
         game = Game.objects.get(id=pk)
