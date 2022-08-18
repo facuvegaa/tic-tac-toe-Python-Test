@@ -78,93 +78,96 @@ def delete_game(request, pk):
 
 @api_view(['POST'])
 def update_game(request, pk):
-        game = Game.objects.get(id=pk)
-        
-        data = request.data
-        
-        #Setting values for validation
-        row = data["row"]
-        column = data["column"]
-        player = data["player"]
-        player1 = game.player1[0]
-        player2 = game.player2[0]
-        s1 = game.player1[1]
-        s2 = game.player2[1]
+        try:    
+            game = Game.objects.get(id=pk)
+            
+            data = request.data
+            
+            #Setting values for validation
+            row = data["row"]
+            column = data["column"]
+            player = data["player"]
+            player1 = game.player1[0]
+            player2 = game.player2[0]
+            s1 = game.player1[1]
+            s2 = game.player2[1]
 
-        #Setting values for serializer
-        data["player2"] = game.player2
-        data["player1"] = game.player1
-
-
-        #Check that the game is not finished to continue. 
-        if game.is_finished and game.winner != None:
-            return Response("Game has already finished! the winner is: {}".format(game.winner))
-        
-        elif game.is_finished and game.winner == None:
-            return Response("Game has already finished with a draw")
+            #Setting values for serializer
+            data["player2"] = game.player2
+            data["player1"] = game.player1
 
 
-        #Check that the move is valid
-        if player == player1:
-            if player == game.next_turn:
-                if (game.board[int(row)][int(column)]) == None:
-                    game.board[int(row)][int(column)] = s1
-                    data["next_turn"] = player2
-                else:
-                    return Response("Invalid board index or already taken space,", status.HTTP_400_BAD_REQUEST)
-            else:
-                return Response("It's not {}'s turn".format(player), status.HTTP_400_BAD_REQUEST)
-        else: 
-            if player == player2:
+            #Check that the game is not finished to continue. 
+            if game.is_finished and game.winner != None:
+                return Response("Game has already finished! the winner is: {}".format(game.winner))
+            
+            elif game.is_finished and game.winner == None:
+                return Response("Game has already finished with a draw")
+
+
+            #Check that the move is valid
+            if player == player1:
                 if player == game.next_turn:
                     if (game.board[int(row)][int(column)]) == None:
-                        game.board[int(row)][int(column)] = s2
-                        data["next_turn"] = player1
+                        game.board[int(row)][int(column)] = s1
+                        data["next_turn"] = player2
                     else:
                         return Response("Invalid board index or already taken space,", status.HTTP_400_BAD_REQUEST)
                 else:
                     return Response("It's not {}'s turn".format(player), status.HTTP_400_BAD_REQUEST)
             else: 
-                return Response("That player is not in this game", status.HTTP_400_BAD_REQUEST)
-         
-        
-        #Check the board for a win 
-
-        board = game.board
-        
-        for wins in WINNING:
-            if board[wins[0][0]][wins [0][1]] == s1 and board[wins[1][0]][wins[1][1]] == s1 and board[wins[2][0]][wins[2][1]] == s1:
-                game.is_finished = True
-                game.winner = player1
-            elif board[wins[0][0]][wins [0][1]] == s2 and board[wins[1][0]][wins[1][1]] == s2 and board[wins[2][0]][wins[2][1]] == s2:
-                game.is_finished = True
-                game.winner = player2
+                if player == player2:
+                    if player == game.next_turn:
+                        if (game.board[int(row)][int(column)]) == None:
+                            game.board[int(row)][int(column)] = s2
+                            data["next_turn"] = player1
+                        else:
+                            return Response("Invalid board index or already taken space,", status.HTTP_400_BAD_REQUEST)
+                    else:
+                        return Response("It's not {}'s turn".format(player), status.HTTP_400_BAD_REQUEST)
+                else: 
+                    return Response("That player is not in this game", status.HTTP_400_BAD_REQUEST)
             
+            
+            #Check the board for a win 
+
+            board = game.board
+            
+            for wins in WINNING:
+                if board[wins[0][0]][wins [0][1]] == s1 and board[wins[1][0]][wins[1][1]] == s1 and board[wins[2][0]][wins[2][1]] == s1:
+                    game.is_finished = True
+                    game.winner = player1
+                elif board[wins[0][0]][wins [0][1]] == s2 and board[wins[1][0]][wins[1][1]] == s2 and board[wins[2][0]][wins[2][1]] == s2:
+                    game.is_finished = True
+                    game.winner = player2
+                
+            
+            #Check the board for a draw
+
+            tie_list = []
+            for row in board:
+                for i in row:
+                    tie_list.append(i)
+
+            if None in tie_list:
+                pass
+            else:
+                game.winner = None
+                game.is_finished = True
+
+
+            #Add 1 to movements_played
+            game.movements_played += 1
+            
+            serializer = GameSerializer(instance=game, data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                return Response("Invalid data", status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status.HTTP_202_ACCEPTED)
         
-        #Check the board for a draw
-
-        tie_list = []
-        for row in board:
-            for i in row:
-                tie_list.append(i)
-
-        if None in tie_list:
-            pass
-        else:
-            game.winner = None
-            game.is_finished = True
-
-
-        #Add 1 to movements_played
-        game.movements_played += 1
-        
-        serializer = GameSerializer(instance=game, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-        else:
-            return Response("Invalid data", status.HTTP_400_BAD_REQUEST)
-        return Response(serializer.data, status.HTTP_202_ACCEPTED)
-
+        except:
+            return Response("Game with id:{} does not exist".format(pk), status.HTTP_400_BAD_REQUEST)
 
 
 

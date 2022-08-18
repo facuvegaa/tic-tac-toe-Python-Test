@@ -100,7 +100,7 @@ Returns a response with all the finished games.
 
 #### Get active games
 ```http
-  GET localhost:8000/api/get_finished_games/
+  GET localhost:8000/api/get_active_games/
 ```
 Returns a response with all the active game. 
 
