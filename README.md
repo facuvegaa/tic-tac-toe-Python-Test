@@ -128,6 +128,8 @@ Retrive a game by id
 | `row` | `string` | "0" | **Required** |
 | `column` | `sring` | "0" | **Required** |
 
+The squares of the board are counted as in computer science, for example the square of the first row on the left would be row="0" and column="0"
+
 Update the state of the game:
 ```JSON
 {
