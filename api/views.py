@@ -102,17 +102,19 @@ def update_game(request, pk):
                 return Response("Game has already finished! the winner is: {}".format(game.winner))
             
             elif game.is_finished and game.winner == None:
-                return Response("Game has already finished with a draw")
+                return Response("Game has already ended in a draw!")
 
 
             #Check that the move is valid
+            if int(row) >= 3 or int(column) >= 3:
+                return Response("Invalid board index", status.HTTP_400_BAD_REQUEST)
             if player == player1:
                 if player == game.next_turn:
                     if (game.board[int(row)][int(column)]) == None:
                         game.board[int(row)][int(column)] = s1
                         data["next_turn"] = player2
                     else:
-                        return Response("Invalid board index or already taken space,", status.HTTP_400_BAD_REQUEST)
+                        return Response("This space has already been taken", status.HTTP_400_BAD_REQUEST)
                 else:
                     return Response("It's not {}'s turn".format(player), status.HTTP_400_BAD_REQUEST)
             else: 
@@ -122,7 +124,7 @@ def update_game(request, pk):
                             game.board[int(row)][int(column)] = s2
                             data["next_turn"] = player1
                         else:
-                            return Response("Invalid board index or already taken space,", status.HTTP_400_BAD_REQUEST)
+                            return Response("This space has already been taken", status.HTTP_400_BAD_REQUEST)
                     else:
                         return Response("It's not {}'s turn".format(player), status.HTTP_400_BAD_REQUEST)
                 else: 
@@ -130,7 +132,6 @@ def update_game(request, pk):
             
             
             #Check the board for a win 
-
             board = game.board
             
             for wins in WINNING:
@@ -143,7 +144,6 @@ def update_game(request, pk):
                 
             
             #Check the board for a draw
-
             tie_list = []
             for row in board:
                 for i in row:

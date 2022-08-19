@@ -1,7 +1,7 @@
 # tic-tac-toe-Python-Test
 Technical test for Python Developer job.
 
-The project consist in develop an API that lets you play the tic-tac-toe game,
+The project consist on develop an API that lets you play the tic-tac-toe game,
 validate the board and return the winner, a message saying it was a tie, or an error if
 there was some kind of problem with the input data.
 
@@ -17,14 +17,13 @@ Go to the project directory.
 cd tic-tac-toe-Python-Test
 ```
 
-Build images from application and database.
+Build images from the application and database.
 ```bash
 docker-compose build
 ```
 
-Make and run the migrations
+Run the migrations
 ```bash
-docker-compose run web python manage.py makemigrations
 docker-compose run web python manage.py migrate
 ```
 
