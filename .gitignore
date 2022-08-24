@@ -1,6 +1,7 @@
 #Boilerplate copied from github
 
 # Byte-compiled / optimized / DLL files
+api/__pycache__
 __pycache__/
 *.py[cod]
 

@@ -22,15 +22,26 @@ Build images from the application and database.
 docker-compose build
 ```
 
-Run the migrations
-```bash
-docker-compose run web python manage.py migrate
-```
-
 Run the generated images.
 ```bash
 docker-compose up
 ```
+
+CTRL+C to stop and run the migrations.
+```bash
+docker-compose run web python manage.py migrate
+```
+
+Run the tests.
+```bash
+docker-compose run web python manage.py test
+```
+
+Run the generated images again.
+```bash
+docker-compose up
+```
+
 
 ## API Reference
 
@@ -45,7 +56,7 @@ docker-compose up
 | :-------- | :------- | :------- | :------------------------- |
 | `player1` | `array` | ["Facu", "X"] | **Required** |
 | `player2` | `array` | ["Benja", "O"] | **Required** |
-| `next_turn` | `sring` | "Facu" | **Required** |
+| `next_turn` | `sring` | "Benja" | **Required** |
 
 Returns a response with the data of the created game:
 ```JSON
@@ -142,12 +153,12 @@ Update the state of the game:
         "Pablo",
         "O"
     ],
-    "next_turn": "Pedro",
+    "next_turn": "Pablo",
     "movements_played": 1,
     "winner": "",
     "board": [
         [
-            "O",
+            "X",
             null,
             null
         ],

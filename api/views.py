@@ -145,15 +145,16 @@ def update_game(request, pk):
             
             #Check the board for a draw
             tie_list = []
-            for row in board:
-                for i in row:
-                    tie_list.append(i)
+            if game.is_finished == False:
+                for row in board:
+                    for i in row:
+                        tie_list.append(i)
 
-            if None in tie_list:
-                pass
-            else:
-                game.winner = None
-                game.is_finished = True
+                if None in tie_list:
+                    pass
+                else:
+                    game.winner = None
+                    game.is_finished = True
 
 
             #Add 1 to movements_played
